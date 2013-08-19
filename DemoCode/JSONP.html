@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>JSONP Demo</title>
+	<script type="text/javascript">
+		$.ajax({
+		     url:"https://chn-zhzhang2.corp.microstrategy.com/SSO/MSTRAccount.svc/MSTRAccount/GetAllSecurityQuestions",
+		     //url:"https://resource.microstrategy.com/cloudexpressservice/ResourceCenterInformation.asmx/HelloWorld",
+		     type: "Get",
+		     dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
+		     data: "{}",
+		     success:function(json){
+		         // do stuff with json (in this case an array)
+		         alert("Success");
+		     },
+		     error:function(){
+		         alert("Error");
+		     },
+		});
+	</script>
+	
+</head>
+<body>
+	Chess Demo.
+</body>
+</html>
+

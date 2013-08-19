@@ -51,8 +51,7 @@ dynamicPrgm.LSS.LongestIncreasingSubsequenceLength = function(inputArray) {
 
 			// for (var i = 0; i < activeList.length; i++) {
 			// 	activeList[activeListRow-1][activeList[i].length]  = tailTable[lenthOfTail-1];
-			// };
-			
+			// };			
 		}
 		else{  
 		    // inputArray[i] wants to be current end candidate of an existing subsequence

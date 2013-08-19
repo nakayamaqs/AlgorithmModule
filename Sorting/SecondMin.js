@@ -5,7 +5,6 @@ mymodule.SecondMin = function SecondMin (){
 	
 	var inputArray = [6,10,8,4,100,20,5,2,1,3,4,5,6,7,8,9,0,11,22,33,44,55]; //array to find Seconde minimal elements.
 	
-
 	var idxList = []; //save all the indexes that compares.
 	for (var i = 0; i < inputArray.length; i++) {
 		idxList[i] = i;
