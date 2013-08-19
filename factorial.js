@@ -1,4 +1,5 @@
 var mymodule = mymodule || {};
+
 mymodule.factorial = function factorial (inputNumber){
 	if (isNaN(parseInt(inputNumber))) {
 		//log;

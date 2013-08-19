@@ -1,11 +1,6 @@
-//name sapce
+//namespace
 var dynamicPrgm = dynamicPrgm || {};
 
-dynamicPrgm.test = function(){
-	console.log("wer");
-};
-
-dynamicPrgm.test();
 
 dynamicPrgm.MarixChainOrder = function MarixChainOrder(plist){
 	var n = plist.length - 1; //plist's length is 1 larger than the Matrix elements
@@ -51,8 +46,7 @@ dynamicPrgm.MarixChainOrder = function MarixChainOrder(plist){
 	return result;
 };
 
-dynamicPrgm.PrintMarix = function printOrder(s,i,j)
-{
+dynamicPrgm.PrintMarix = function printOrder(s,i,j){
 	if(i==j)
 	{
 		//console.log("A"+i);
