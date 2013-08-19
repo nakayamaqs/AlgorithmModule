@@ -1,3 +1,3 @@
-#README.md
+#My Algorithms
 #New Readme file.
-A test project for My Algorithm code files.
+This is my Algorithms modules for learning purposes.
