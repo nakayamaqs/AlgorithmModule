@@ -1,3 +1,10 @@
+/*
+*
+*   This code is for Binary-Heap learning purpose.
+*	Zhe Zhang
+*	Aug 22, 2013
+*
+*/
 var mymodule = mymodule || {};
 mymodule.Heap = {};
 mymodule.Heap.MyArray = [];
