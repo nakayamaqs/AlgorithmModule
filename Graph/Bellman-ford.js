@@ -1,6 +1,6 @@
 /*
 *
-*   This code is for Bellman-ford learning purpose. Running time is O(V+E).
+*   This code is for Bellman-ford learning purpose. Running time is O(V*E).
 *	Suppose Underscore imported here.
 *	Zhe Zhang
 *	Aug 22, 2013
