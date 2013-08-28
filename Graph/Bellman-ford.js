@@ -22,7 +22,7 @@ graphBasic.Bellman_ford.InitSingleSource = function(){
 	graphBasic.G.V[0].d = 0; //start vertex, set d=0;
 
 	//Init all edges in the Graph.
-	graphBasic.G.Adj = _.map([[0,1, 2, 3,4,5,6],[5], [1,4], [2,6], [1,5], [2], [2,3]], function(adjcent){  
+	graphBasic.G.Adj = _.map([[1, 2, 3,4,5,6],[5], [1,4], [2,6], [1,5], [2], [2,3]], function(adjcent){  
 		return _.map(adjcent, function(num){ return graphBasic.G.V[num]; }); 
 	});	
 
@@ -45,7 +45,7 @@ graphBasic.Bellman_ford.W = function(u, v){
 
 //Return the weight from u-v, Note: w_key should be like "0-2"
 graphBasic.Bellman_ford.W_Key = function(w_key){
-	return _.find(graphBasic.G.Weight, function(num, key){ return key == w_key;});
+	return _.find(graphBasic.G.Weight, function(num, key){ return key == w_key;}); //find value by key, graphBasic.G.Weight is just hash table.
 };
 
 graphBasic.Bellman_ford.Relax = function(u, v, w){
@@ -106,7 +106,7 @@ graphBasic.Vertex = function(name){
 	//this.color = "White";
 	this.name = name;
 	this.parent = null;
-	this.d = Number.MAX_VALUE; //distance
+	this.d = Infinity; //distance: use Infinity instead of Number.MAX_VALUE;
 	//this.count = 0; //this is included for DFS_Path.js purpose.
 	this.toString = function(){
 		return this.name;

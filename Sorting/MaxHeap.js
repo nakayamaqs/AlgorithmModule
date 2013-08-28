@@ -128,32 +128,32 @@ mymodule.Heap.Init = function()
 
 
 
-mymodule.Heap.Init();
-console.log("Get Maximum element after Heap built.");
-console.log(mymodule.Heap.Maximum(mymodule.Heap.MyArray));
+// mymodule.Heap.Init();
+// console.log("Get Maximum element after Heap built.");
+// console.log(mymodule.Heap.Maximum(mymodule.Heap.MyArray));
 
-console.log("After heap MaxHeapIFY at i = 1.");
-mymodule.Heap.MaxHeapIFY(mymodule.Heap.MyArray, 1);
-console.log(mymodule.Heap.MyArray);
+// console.log("After heap MaxHeapIFY at i = 1.");
+// mymodule.Heap.MaxHeapIFY(mymodule.Heap.MyArray, 1);
+// console.log(mymodule.Heap.MyArray);
 
-console.log("Increase key at index=8");
-mymodule.Heap.MaxHeapIncreaseKey(mymodule.Heap.MyArray, 8, 25);
-console.log(mymodule.Heap.Maximum(mymodule.Heap.MyArray));
-console.log(mymodule.Heap.MyArray);
+// console.log("Increase key at index=8");
+// mymodule.Heap.MaxHeapIncreaseKey(mymodule.Heap.MyArray, 8, 25);
+// console.log(mymodule.Heap.Maximum(mymodule.Heap.MyArray));
+// console.log(mymodule.Heap.MyArray);
 
-console.log("Extrac Max Heap element..");
-console.log(mymodule.Heap.HeapExtraMax(mymodule.Heap.MyArray));
+// console.log("Extrac Max Heap element..");
+// console.log(mymodule.Heap.HeapExtraMax(mymodule.Heap.MyArray));
 
-console.log("Insert key = 30 into Heap");
-mymodule.Heap.MaxHeapInsert(mymodule.Heap.MyArray,30);
+// console.log("Insert key = 30 into Heap");
+// mymodule.Heap.MaxHeapInsert(mymodule.Heap.MyArray,30);
 
-console.log("Sorting:"+mymodule.Heap.MyArray);
-mymodule.Heap.HeapSort(mymodule.Heap.MyArray);
-console.log(mymodule.Heap.MyArray);
+// console.log("Sorting:"+mymodule.Heap.MyArray);
+// mymodule.Heap.HeapSort(mymodule.Heap.MyArray);
+// console.log(mymodule.Heap.MyArray);
 
-mymodule.Heap.MyArray = [16,4,9,14,7,10,3,2,8,1]; //Init again for sorting.
-console.log("Sorting array:"+mymodule.Heap.MyArray);
-mymodule.Heap.HeapSort(mymodule.Heap.MyArray);
-console.log("After heap sorting..");
-console.log(mymodule.Heap.MyArray);
+// mymodule.Heap.MyArray = [16,4,9,14,7,10,3,2,8,1]; //Init again for sorting.
+// console.log("Sorting array:"+mymodule.Heap.MyArray);
+// mymodule.Heap.HeapSort(mymodule.Heap.MyArray);
+// console.log("After heap sorting..");
+// console.log(mymodule.Heap.MyArray);
 
