@@ -7,6 +7,7 @@
 *	Aug 28, 2013
 *
 */
+
 /// <reference path="jslib/underscore/underscore-min.js"/>
 /// <reference path="sorting/GenericHeap.js"/>
 
@@ -21,11 +22,11 @@ graphBasic.G.QueueDistance = []; //store distances of all vertices
 graphBasic.Dijkstra.InitSingleSource = function(){
 	//!! Underscore helps save all the lines as in DFS.js.
 	//Init all the vertex in the Graph.
-	graphBasic.G.V = _.map( [0,1, 2, 3,4,5,6], function(num){ return new graphBasic.Vertex(num); });
+	graphBasic.G.V = _.map( [0, 1, 2, 3, 4, 5, 6], function(num){ return new graphBasic.Vertex(num); });
 	graphBasic.G.V[0].d = 0; //start vertex, set d=0;
 
 	//Init all edges in the Graph.
-	graphBasic.G.Adj = _.map([[1, 2, 3,4,5,6],[5], [1,4], [2,6], [1,5], [2], [2,3]], function(adjcent){  
+	graphBasic.G.Adj = _.map([[1, 2, 3, 4, 5, 6],[5], [1,4], [2,6], [1,5], [2], [2,3]], function(adjcent){  
 		return _.map(adjcent, function(num){ return graphBasic.G.V[num]; }); 
 	});	
 
@@ -38,6 +39,10 @@ graphBasic.Dijkstra.InitSingleSource = function(){
 							"5-2": 7,
 							"6-2": 5,"6-3": 10,
 						  };
+
+	mymodule.GenericHeap.BuildMinHeap(graphBasic.G.V,  graphBasic.CompareVertex, graphBasic.SetKey, graphBasic.GetKey,
+		graphBasic.InsertVertex, graphBasic.Swap);
+	console.table(graphBasic.G.V); //console.table support in Chrome
 };
 
 //Return the weight from u-v, Note: u, v are graphBasic.Vertex.
@@ -57,8 +62,7 @@ graphBasic.Dijkstra.Relax = function(u, v, w){
 	{
 		v.d = u.d + w(u,v);
 		v.parent = u;
-		var offSet = graphBasic.G.QueueDistance.length - graphBasic.G.QueueDistance.HeapSize;
-		mymodule.Heap.MinHeapDecreaseKey(graphBasic.G.QueueDistance, v.name - offSet, v.d); 	//Note: v.name = index of QueueDistance, v.d = Key to decrease
+		mymodule.GenericHeap.MinHeapDecreaseKey(graphBasic.G.V, v.name, v.d); 	//Note: v.name is index of Vertex, v.d = Key to decrease
 	}
 };
 
@@ -69,24 +73,19 @@ graphBasic.Dijkstra.Algorithm = function(){
 	var S = [];
 	Q = graphBasic.G.V; //we don't need to maintains Q here, just use QueueDistance instead.
 
-	graphBasic.G.QueueDistance = _.pluck(graphBasic.G.V, 'd');   // Extracting "distance" property from Vetices Matrics.
-	mymodule.Heap.BuildMinHeap(graphBasic.G.QueueDistance);      //Build Heap for distance array.
+	//graphBasic.G.QueueDistance = _.pluck(graphBasic.G.V, 'd');   // Extracting "distance" property from Vetices Matrics.
+	//mymodule.Heap.BuildMinHeap(graphBasic.G.QueueDistance);      //Build Heap for distance array.
 
-	while (graphBasic.G.QueueDistance.HeapSize > 0){ 			 //_.isEmpty(graphBasic.G.QueueDistance)
-		var minDistance = mymodule.Heap.HeapExtraMin(graphBasic.G.QueueDistance);
-		
-		var matchVertex = _.find(graphBasic.G.V, function(v){ return v.d == minDistance; });
-		var index_Vertex_inQ = _.indexOf(_.pluck(graphBasic.G.V, 'd'), minDistance);          // get index of the minDistance element in Vertices array.
+	while (graphBasic.G.V.HeapSize > 0){ 			 //_.isEmpty(graphBasic.G.QueueDistance)
+		var minVertex = mymodule.GenericHeap.HeapExtraMin(graphBasic.G.V);
+		S = _.union(S, minVertex);
 
-		var vertexToPopup = graphBasic.G.V.splice(index_Vertex_inQ,1); //remove from Q;
-		_.union(S, vertexToPopup);
-
-		_.each(graphBasic.G.Adj[index_Vertex_inQ], function(vertex_end){
-			 graphBasic.Dijkstra.Relax(matchVertex, vertex_end, graphBasic.Dijkstra.W); 	  //from the matchVertex (which have min distance) to Vertex_end by Adj array.
+		_.each(graphBasic.G.Adj[minVertex.name], function(vertex_end){
+			 graphBasic.Dijkstra.Relax(minVertex, vertex_end, graphBasic.Dijkstra.W); 	  //from the minVertex (which have min distance) to Vertex_end by Adj array.
 		});
 	};
 
-	console.log(S);
+	console.log(S); //print S after while loop.
 };
 
 graphBasic.Dijkstra.Print = function(u, message){
@@ -128,14 +127,39 @@ graphBasic.CompareVertex = function(v1, v2){
 };
 
 graphBasic.SetKey = function(array, i, key){
-	if(array && array[i].d)
+	if(array && _.isNumber(array[i].d))
 	{ 
 		array[i].d = key;
 	}	
 };
 
+graphBasic.GetKey = function(array, i){
+	if(array && _.isNumber(array[i].d))
+	{ 
+		return array[i].d;
+	}	
+};
+
+graphBasic.InsertVertex = function(name){
+	return new graphBasic.Vertex(name);
+};
+
+graphBasic.Swap = function(array, i, j){
+	if(array && _.isNumber(array[i].d) && _.isEmpty(array[i].name))
+	{ 
+		var tempName = array[i].name;
+		var temp_d = array[i].d;
+
+		array[i].d = array[j].d;
+		array[i].name = array[j].name;
+
+		array[j].d = temp_d;
+		array[j].name = tempName;
+	}	
+};
+
 graphBasic.Dijkstra.Run = function(){
-	
+
 	graphBasic.Dijkstra.Algorithm();
 	console.log("Print Shortest path:");
 	graphBasic.Dijkstra.PrintAll();
@@ -146,31 +170,51 @@ graphBasic.Dijkstra.Run = function(){
 	console.log(graphBasic.G.Weight);
 };
 
-//graphBasic.Dijkstra.Run();
+graphBasic.Dijkstra.Run();
 
 //test generic heap sorting..
-graphBasic.Dijkstra.InitSingleSource();
-graphBasic.G.V[0].d = 19;
-graphBasic.G.V[1].d = 8;
-graphBasic.G.V[2].d = 9;
-graphBasic.G.V[3].d = 4;
-graphBasic.G.V[4].d = 11;
-graphBasic.G.V[5].d = 6;
-graphBasic.G.V[6].d = 10;
+// graphBasic.Dijkstra.InitSingleSource();
+// graphBasic.G.V[0].d = 19;
+// graphBasic.G.V[1].d = 8;
+// graphBasic.G.V[2].d = 9;
+// graphBasic.G.V[3].d = 4;
+// graphBasic.G.V[4].d = 11;
+// graphBasic.G.V[5].d = 6;
+// graphBasic.G.V[6].d = 10;
 
-mymodule.GenericHeap.BuildMinHeap(graphBasic.G.V,  graphBasic.CompareVertex ,graphBasic.SetKey);
-console.log("Get Minimum element after Heap built.");
-console.log(mymodule.GenericHeap.Minimum(graphBasic.G.V));
+// mymodule.GenericHeap.BuildMinHeap(graphBasic.G.V,  graphBasic.CompareVertex ,graphBasic.SetKey, graphBasic.InsertVertex);
+// console.log("Get Minimum element after Heap built.");
+// console.log(mymodule.GenericHeap.Minimum(graphBasic.G.V));
 
-console.log("After running heap MinHeapIFY at i = 1.");
-mymodule.GenericHeap.MinHeapIFY(graphBasic.G.V, 1);
-console.log(mymodule.GenericHeap.MyArray);
+// console.log("After running heap MinHeapIFY at i = 1.");
+// mymodule.GenericHeap.MinHeapIFY(graphBasic.G.V, 1);
+// console.log(console.log(graphBasic.G.V));
 
-console.log("Decrease key at index=2");
-mymodule.GenericHeap.MinHeapDecreaseKey(graphBasic.G.V, 2, 5);
-console.log(mymodule.GenericHeap.Minimum(graphBasic.G.V));
-console.log(graphBasic.G.V);
+// console.log("Decrease key at index=2");
+// mymodule.GenericHeap.MinHeapDecreaseKey(graphBasic.G.V, 2, 5);
+// console.log(mymodule.GenericHeap.Minimum(graphBasic.G.V));
+// console.log(graphBasic.G.V);
 
-console.log("Sorting:"+ graphBasic.G.V);
-mymodule.GenericHeap.HeapSort(graphBasic.G.V);
-console.log(graphBasic.G.V);
+// console.log("Insert key = 5 into Heap");
+// mymodule.GenericHeap.MinHeapInsert(graphBasic.G.V,5);
+
+// console.log("Sorting:"+ graphBasic.G.V);
+// mymodule.GenericHeap.HeapSort(graphBasic.G.V);
+// console.log(graphBasic.G.V);
+
+
+// graphBasic.G.V[0].d = 19;
+// graphBasic.G.V[1].d = 8;
+// graphBasic.G.V[2].d = 9;
+// graphBasic.G.V[3].d = 4;
+// graphBasic.G.V[4].d = 11;
+// graphBasic.G.V[5].d = 6;
+// graphBasic.G.V[6].d = 10;
+// console.log("Init array again.");
+// console.log("Prepare to sort the array: ");
+// console.log(graphBasic.G.V);
+// mymodule.GenericHeap.HeapSort(graphBasic.G.V);
+// console.log("After heap sorting..");
+// console.log(graphBasic.G.V);
+
+
