@@ -84,8 +84,8 @@ mymodule.Heap.HeapExtraMin = function(array){
 	{
 		var Min = array[0];
 		array[0] = array[array.HeapSize-1];
-		mymodule.Heap.MinHeapIFY(array, 0); 			//Main heap's property
 		array.HeapSize--;
+		mymodule.Heap.MinHeapIFY(array, 0); 			//Main heap's property
 		return Min;
 	}
 	else{
@@ -113,11 +113,9 @@ mymodule.Heap.MinHeapInsert = function(array,key){
 	array.HeapSize++;
 	array[array.HeapSize-1] = Infinity; //Number.Min_VALUE;
 	mymodule.Heap.MinHeapDecreaseKey(mymodule.Heap.MyArray, array.HeapSize-1, key);
-	
 };
 
-mymodule.Heap.Init = function()
-{
+mymodule.Heap.Init = function(){
 	mymodule.Heap.MyArray = [16,4,9,14,7,10,3,2,8,1];
 	console.log(mymodule.Heap.MyArray);
 	mymodule.Heap.BuildMinHeap(mymodule.Heap.MyArray);

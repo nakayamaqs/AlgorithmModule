@@ -100,10 +100,16 @@ mymodule.GenericHeap.BuildMinHeap = function(array, compareFunc, setKeyFunc, get
 	}
 
 	//check if array is 'array'
-	array.HeapSize = array.length;
-	for (var i = Math.round(array.HeapSize / 2); i >= 0; i--) { 	//from end of first half to the first element.
-		mymodule.GenericHeap.MinHeapIFY(array, i);
-	};
+	if(_.isArray(array) )
+	{
+		array.HeapSize = array.length;
+		for (var i = Math.round(array.HeapSize / 2); i >= 0; i--) { 	//from end of first half to the first element.
+			mymodule.GenericHeap.MinHeapIFY(array, i);
+		};
+	}
+	else{
+		console.log("Not array, please check mymodule.GenericHeap.BuildMinHeap input parameters.");
+	}
 };
 
 mymodule.GenericHeap.HeapSort = function(array){
@@ -124,13 +130,13 @@ mymodule.GenericHeap.Minimum = function(array){
 mymodule.GenericHeap.HeapExtraMin = function(array){
 	if(array.HeapSize >= 1)
 	{
-		var Min = array[0]; // mymodule.GenericHeap.GetKey(array, 0); 	//array[0];
-		//mymodule.GenericHeap.SetKey(array, 0, mymodule.GenericHeap.GetKey(array, array.HeapSize-1)); //overwritted SetKey func.
-		mymodule.GenericHeap.Swap(array, 0, array.HeapSize-1);
-		//array[0] = array[array.HeapSize-1];
-		mymodule.GenericHeap.MinHeapIFY(array, 0); 			//Main heap's property
-		Min = array[array.HeapSize-1];
+		var Min = _.clone(array[0]); 								// mymodule.GenericHeap.GetKey(array, 0); 	//array[0];
+																	//mymodule.GenericHeap.SetKey(array, 0, mymodule.GenericHeap.GetKey(array, array.HeapSize-1)); //overwritted SetKey func.
+		mymodule.GenericHeap.Swap(array, 0, array.HeapSize-1);  	//array[0] = array[array.HeapSize-1];
 		array.HeapSize--;
+		mymodule.GenericHeap.MinHeapIFY(array, 0); 			//Main heap's property
+		Min = array[array.HeapSize]; //pop up the last item
+		
 		return Min;
 	}
 	else{
@@ -155,21 +161,17 @@ mymodule.GenericHeap.MinHeapDecreaseKey = function(array, i , key){
 	}	
 };
 
-mymodule.GenericHeap.MinHeapInsert = function(array,key){
+mymodule.GenericHeap.MinHeapInsert = function(array, key){
 	array.HeapSize++;	
 	array[array.HeapSize-1] = mymodule.GenericHeap.InsertNode(array.HeapSize - 1); 		//Infinity; //Number.Min_VALUE;
 	mymodule.GenericHeap.MinHeapDecreaseKey(array, array.HeapSize-1, key);
-	
 };
 
-mymodule.GenericHeap.Init = function()
-{
+mymodule.GenericHeap.Init = function(){
 	mymodule.GenericHeap.MyArray = [18,4,9,14,7,10,3,2,8,1];
 	console.log(mymodule.GenericHeap.MyArray);
 	mymodule.GenericHeap.BuildMinHeap(mymodule.GenericHeap.MyArray);
-	//mymodule.GenericHeap.MyArray.HeapSize = mymodule.GenericHeap.MyArray.length;
 };
-
 
 
 // mymodule.GenericHeap.Init();
