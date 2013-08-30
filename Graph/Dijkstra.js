@@ -1,10 +1,12 @@
 /*
 *
-*   This code is for Dijkstra learning purpose. 
+*   This code is for Dijkstra learning purpose, use binary heap in my implementation.
+*	Dijkstra’s algorithm solves the single-source shortest-paths problem on a weighted, directed graph G(V,E) for the case in which all edge weights are nonnegative.
 *	Running time is O(V*V). If sparse enough, then O(V*V/lgV) for binary heap, O(V*lgV + E) for Fibonacci heap.
 *	Suppose Underscore imported here.
 *	Zhe Zhang
-*	Aug 28, 2013
+*	Created on Aug 28, 2013
+*   Latest updated on Aug 30, 2013
 *
 */
 
@@ -80,7 +82,7 @@ graphBasic.Dijkstra.Relax = function(u_name, v_name, w, vertex_q){
 		v.d = u.d + w(u,v);
 		v.parent = u;
 		//v_q = _.find(vertex_q, function(vertex){ return vertex.name == v.name; });
-		v_index =_.indexOf(_.map(vertex_q, function(vertex){ return vertex.name; }), v.name)
+		v_index = _.indexOf(_.map(vertex_q,  function(vertex){ return vertex.name; }), v.name);
 		mymodule.GenericHeap.MinHeapDecreaseKey(vertex_q, v_index, v.d); 	//Note: v.name is index of Vertex, v.d = Key to decrease
 		//mymodule.GenericHeap.MinHeapDecreaseKey(graphBasic.G.V, v.name, v.d); 	//Note: Update G.V, too. v.name is index of Vertex, v.d = Key to decrease
 	}
@@ -142,7 +144,7 @@ graphBasic.CompareVertex = function(v1, v2){
 };
 
 graphBasic.SetKey = function(array, i, key){
-	if(array && _.isNumber(array[i].d))
+	if(array && array[i].hasOwnProperty("d")) //&& _.isNumber(array[i].d)
 	{ 
 		array[i].d = key;
 		// var vertex = _.find(array, function(vertex){ return vertex.name == v_name; }); //find vertex by name.
@@ -153,7 +155,7 @@ graphBasic.SetKey = function(array, i, key){
 };
 
 graphBasic.GetKey = function(array, i){
-	if(array && _.isNumber(array[i].d) )
+	if(array && array[i].hasOwnProperty("d")) //&& _.isNumber(array[i].d)
 	{ 
 		return array[i].d;
 	}	
