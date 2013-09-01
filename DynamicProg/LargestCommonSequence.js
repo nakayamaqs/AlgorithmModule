@@ -1,10 +1,10 @@
 /*
 *
 *   This code is for Largest common sequence problem.
-*	Algorithm is simple two case:
+*	Algorithm based on the two cases:
 *		case 1: T[i][j] = T[i-1][j-1] + 1;
 *		case 2: T[i][j] = Max(T[i][j-1], T[i-1][j]);
-*	Running time is Theta(m*n). 
+*	Running time is Theta(m*n).  Bottom-up strategy.
 *	Suppose Underscore imported here.
 *	Zhe Zhang
 *	Created on Sep 1, 2013
