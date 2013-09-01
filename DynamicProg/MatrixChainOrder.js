@@ -1,3 +1,13 @@
+/*
+*
+*   This code is for Matrix-chain multiplication problem.
+*	Details to be added later.
+*	Zhe Zhang
+*	Created on Someday, 2013
+*   Latest updated on Sep 1, 2013
+*
+*/
+
 //namespace
 var dynamicPrgm = dynamicPrgm || {};
 
