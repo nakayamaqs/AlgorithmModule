@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- 
+	Show demo about apply() in javascript.
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Function.Apply() Demo</title>
+	<script type="text/javascript">
+	Function.prototype.construct = function (aArgs) {
+	    var fConstructor = this, 
+	    fNewConstr = function () { 
+	    	fConstructor.apply(this, aArgs); 
+	    };
+	    fNewConstr.prototype = fConstructor.prototype;
+	    return new fNewConstr();
+	};
+
+	function MyConstructor () {
+	    for (var nProp = 0; nProp < arguments.length; nProp++) {
+	        this["property" + nProp] = arguments[nProp];
+	    }
+	}
+
+	var myArray = [4, "Hello world!", false];
+	myInstance = MyConstructor.construct(myArray);
+
+	console.log(myInstance.property1); // alerts "Hello world!"
+	console.log(myInstance instanceof MyConstructor); // alerts "true"
+	console.log(myInstance.constructor); // alerts "MyConstructor"
+
+	/* min/max number in an array */
+	var numbers = [5, 6, 2, 3, 7];
+
+	/* using Math.min/Math.max apply */
+	var max = Math.max.apply(null, numbers); /* This about equal to Math.max(numbers[0], ...) or Math.max(5, 6, ..) */
+	min = Math.min.apply(null, numbers);
+	console.log(max);
+	console.log(min);
+	</script>	
+</head>
+<body>
+	Chess Demo.
+</body>
+</html>
+
