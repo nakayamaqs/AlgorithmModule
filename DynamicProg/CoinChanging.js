@@ -1,21 +1,23 @@
 /**
 *  This code is for Coin changing learning purpose.
 *  Solution to Problem 16-1 - Introduction to algorithms: Coin changing.
+*
 *  dynamicPrgm.coinChanging(), Running time is O(n*k). n is size of cents, k is number of kinds of coins.
 *  dynamicPrgm.coinChanging_New(), Running time is O(n*k). n is size of cents, k is number of kinds of coins.
+*
 *  Refer to: http://oucsace.cs.ohiou.edu/~razvan/courses/cs4040/lecture19.pdf
 *  Zhe Zhang
-*  July 11, 2013
+*  Created on July 11, 2013
 */
 
 
 var dynamicPrgm = dynamicPrgm || {};
 
-dynamicPrgm.CoinCount = []; //store number of coins
-dynamicPrgm.CoinResult = []; //store the coins choosed
-
+dynamicPrgm.CoinCount = []; 	//store number of coins
+dynamicPrgm.CoinResult = []; 	//store the coins choosed
 dynamicPrgm.CoinResult_New = [];
 
+//n is the total cents, d is the denominations array, k is length of denominations array.
 dynamicPrgm.coinChanging = function(n,d,k){
 
 	dynamicPrgm.CoinCount[0] = 0;
@@ -24,9 +26,9 @@ dynamicPrgm.coinChanging = function(n,d,k){
 		dynamicPrgm.CoinCount[j] = Number.MAX_VALUE;
 			
 		for (var i = 1; i <= k; i++) {
-			//When 1, we can include d[i] coind; 2, the left count + 
+			//When 1, we can include d[i] coin; 2, the left count + 1 < coin count of total j value.
 			var currentCoinIndex = i-1;
-			if(d[currentCoinIndex] <= j && 1 + dynamicPrgm.CoinCount[j-d[currentCoinIndex]] < dynamicPrgm.CoinCount[j])
+			if(d[currentCoinIndex] <= j && 1 + dynamicPrgm.CoinCount[j-d[currentCoinIndex]] < dynamicPrgm.CoinCount[j]) //if the value is larger than current coin(d[i-1])
 			{
 				dynamicPrgm.CoinCount[j] = 1 + dynamicPrgm.CoinCount[j-d[currentCoinIndex]];
 				dynamicPrgm.CoinResult[j] = d[currentCoinIndex];
@@ -62,7 +64,8 @@ dynamicPrgm.coinChanging_New = function(n,d,k){
     	
     	for (var i = 1; i <= k; i++) {
     		var currentCoinIndex = i-1;
-    		if(j < d[currentCoinIndex]){
+    		//if the n[j] value is larger than current coin(d[i-1])
+    		if(j < d[currentCoinIndex]){ 
     			dynamicPrgm.CoinResult_New[i][j] = dynamicPrgm.CoinResult_New[i-1][j];
     		}
     		else{
@@ -76,7 +79,7 @@ dynamicPrgm.coinChangingRun = function(m){
 	//Init varaiables
 	var n = 30;
 	var denominations = [1,2,5,10,25];
-	dynamicPrgm.CoinCount = []; //number of coins
+	dynamicPrgm.CoinCount = [];  //number of coins
 	dynamicPrgm.CoinResult = []; //the coins choosed
 
 	//Choose which dynamic programming way to choose.
