@@ -40,6 +40,7 @@ dynamicPrgm.LCS.Algorithm = function(inputArrayA, inputArrayB){
 		for (var j = 0; j < n; j++) {
 			if(inputArrayA[i] == inputArrayB[j]){
 				dynamicPrgm.LCS.tabular[i+1][j+1] = dynamicPrgm.LCS.tabular[i][j] + 1; //case 1: T[i][j] = T[i-1][j-1] + 1;
+				
 				if(dynamicPrgm.LCS.Number < dynamicPrgm.LCS.tabular[i+1][j+1]){
 					dynamicPrgm.LCS.Number = dynamicPrgm.LCS.tabular[i+1][j+1];
 					dynamicPrgm.LCS.Solution += "inputArrayA:" + i + "; value:" +inputArrayA[i] + ";  ";
