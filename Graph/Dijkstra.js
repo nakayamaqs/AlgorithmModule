@@ -20,6 +20,7 @@ graphBasic.G.Adj = []; //save adjcent edges
 graphBasic.G.Weight = {}; //save weight for all edges.
 graphBasic.Dijkstra = {}; //declare namespace
 graphBasic.G.QueueDistance = []; //store distances of all vertices
+
 //Basic data structure for Vertex.
 graphBasic.Vertex = function(name){
 	//this.color = "White";
@@ -166,7 +167,7 @@ graphBasic.InsertVertex = function(name){
 };
 
 graphBasic.Swap = function(array, i, j){
-	if(array && _.isNumber(array[i].d) && _.isEmpty(array[i].name))
+	if(array && _.isNumber(array[i].d) && _.isEmpty(array[i].name) == false)
 	{ 
 		var tempName = array[i].name;
 		var temp_d = array[i].d;

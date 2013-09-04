@@ -43,3 +43,13 @@ console.timeEnd("Running  dynamicPrgm.fibonacci(99)");
 console.time("Running  dynamicPrgm.nonmemoize_fibonacci(39)");
 console.log("dynamicPrgm.nonmemoize_fibonacci(39) = " + dynamicPrgm.nonmemoize_fibonacci(39));
 console.timeEnd("Running  dynamicPrgm.nonmemoize_fibonacci(39)");
+
+
+//Recursive function with multi-argumetns.
+dynamicPrgm.fibonacci_withTail = _.memoize(function(n, tail) {
+  return n < 2 ? (n + tail % 3): dynamicPrgm.fibonacci_withTail(n - 1, tail - 1) + dynamicPrgm.fibonacci_withTail(n - 2, tail - 2) + tail;
+});
+
+console.time("Running  dynamicPrgm.dynamicPrgm.fibonacci_withTail(3, 19)");
+console.log("dynamicPrgm.dynamicPrgm.fibonacci_withTail(3, 19) = " + dynamicPrgm.fibonacci_withTail(3, 19));
+console.timeEnd("Running  dynamicPrgm.dynamicPrgm.fibonacci_withTail(3, 19)");
