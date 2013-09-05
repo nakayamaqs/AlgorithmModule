@@ -1,7 +1,9 @@
 /**
 *   This code is for DFS learning purpose.
 *	Zhe Zhang
-*	July 4, 2013
+*	The total running time of the DFS procedure is Theta(V + E).
+*	Created on July 4, 2013
+*   Latest updated on  Sep 5, 2013
 */
 var graphBasic = graphBasic || {};
 
