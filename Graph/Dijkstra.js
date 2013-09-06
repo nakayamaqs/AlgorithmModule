@@ -36,12 +36,12 @@ graphBasic.Vertex = function(name){
 graphBasic.Dijkstra.InitSingleSource = function(){
 	//!! Underscore helps save all the lines as in DFS.js.
 	//Init all the vertex in the Graph.
-	graphBasic.G.V = _.map( [0, 1, 2, 3, 4], function(num){ return new graphBasic.Vertex(num); });
+	graphBasic.G.V = _.map( [0, 1, 2, 3, 4], function(name){ return new graphBasic.Vertex(name); });
 	graphBasic.G.V[0].d = 0; //start vertex, set d=0;
 
 	//Init all edges in the Graph.
 	graphBasic.G.Adj = _.map([ [1,4],[2,3], [3], [0,2], [1,2,3] ], function(adjcent){  
-		return _.map(adjcent, function(num){ return _.clone(graphBasic.G.V[num]); });  	//clone vertices in Adj list.  //return graphBasic.G.V[num];
+		return _.map(adjcent, function(name){ return _.clone(graphBasic.G.V[name]); });  	//clone vertices in Adj list.  //return graphBasic.G.V[num];
 	});	
 
 	//set weight for each edges in G.
